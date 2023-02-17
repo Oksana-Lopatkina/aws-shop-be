@@ -1,33 +1,50 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
-// import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
+import { DynamoDB } from 'aws-sdk';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
+// models
+import { Product } from "../../model/Product";
 
-// import schema from './schema';
+const db = new DynamoDB.DocumentClient();
+const ProductsTableName = process.env.TABLE_NAME_PRODUCTS;
+const ProductsStockTableName = process.env.TABLE_NAME_PRODUCTS_STOCK;
 
-import { Product } from '../../model/product';
-import productsData from '../../store/products.json';
 const getProductsList = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const data: Product[] = productsData;
+    console.log('request getProductsList: ', event);
+    const dataProducts: DynamoDB.ScanOutput = await db
+        .scan({
+          TableName: ProductsTableName,
+        })
+        .promise();
+    const dataStock: DynamoDB.ScanOutput = await db
+        .scan({
+          TableName: ProductsStockTableName,
+        })
+        .promise();
 
-    if (!data) {
+    if (!dataProducts || !dataStock) {
       return formatJSONResponse({
         message: 'Not found',
         event,
       }, 404);
     }
 
+    const data: Product[] = dataProducts.Items.map((product: Product) => {
+      const productCount: number = dataStock.Items.find(stock => stock.productId === product.id)?.count;
+      product.count = productCount || 0;
+      return product;
+    });
+
     return formatJSONResponse({
       data,
-      event,
+      // event,
     });
   } catch (error) {
-    return {
-      statusCode: 500,
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(error),
-    };
+    return formatJSONResponse({
+      error,
+      event,
+    }, 500);
   }
 };
 

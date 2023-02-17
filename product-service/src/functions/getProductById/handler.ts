@@ -1,18 +1,21 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
-// import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
+import { DynamoDB } from 'aws-sdk';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 
-// import schema from './schema';
-
-import { Product } from '../../model/product';
-import productsData from '../../store/products.json';
+const db = new DynamoDB.DocumentClient();
+const TableName = process.env.TABLE_NAME_PRODUCTS;
 const getProductById = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const { id } = event.pathParameters;
-    const data: Product = productsData.find((product: Product) => {
-      return product.id === id;
-    });
+    const data: DynamoDB.DocumentClient.GetItemOutput = await db
+        .get({
+          TableName,
+          Key: {
+            id
+          },
+        })
+        .promise();
 
     if (!data) {
       return formatJSONResponse({
@@ -22,7 +25,7 @@ const getProductById = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     }
 
     return formatJSONResponse({
-      data,
+      data: data.Item,
       event,
     });
   } catch (error) {

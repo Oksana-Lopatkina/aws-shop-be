@@ -1,21 +1,28 @@
+import { ddbDocClient } from "@libs/ddbDocClient";
+import { GetCommand } from "@aws-sdk/lib-dynamodb";
+import { GetCommandInput } from "@aws-sdk/lib-dynamodb/dist-types/commands";
 import { APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
-import { DynamoDB } from 'aws-sdk';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 
-const db = new DynamoDB.DocumentClient();
-const TableName = process.env.TABLE_NAME_PRODUCTS;
 const getProductById = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const { id } = event.pathParameters;
-    const data: DynamoDB.DocumentClient.GetItemOutput = await db
-        .get({
-          TableName,
-          Key: {
-            id
-          },
-        })
-        .promise();
+
+    if (!id) {
+      return formatJSONResponse({
+        message: 'Bad request',
+        event,
+      }, 400);
+    }
+
+    const paramsProduct: GetCommandInput = {
+      TableName: process.env.TABLE_NAME_PRODUCTS,
+      Key: {
+        id
+      },
+    };
+    const data = await ddbDocClient.send(new GetCommand(paramsProduct));
 
     if (!data) {
       return formatJSONResponse({
@@ -26,7 +33,7 @@ const getProductById = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
     return formatJSONResponse({
       data: data.Item,
-      event,
+      // event,
     });
   } catch (error) {
     return formatJSONResponse({

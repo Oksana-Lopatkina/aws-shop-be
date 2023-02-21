@@ -52,7 +52,6 @@ const serverlessConfiguration: AWS = {
       basePath: '/dev',
       typefiles: ['./src/model/Product.ts' ],
       apiType: 'http',
-      // host: 'qrc6eg3r7d.execute-api.us-east-1.amazonaws.com',
     },
   },
 };

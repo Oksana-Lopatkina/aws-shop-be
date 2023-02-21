@@ -1,6 +1,7 @@
-const AWS = require('aws-sdk');
+import { CreateTableCommand } from "@aws-sdk/client-dynamodb";
+import { ddbClient } from "@libs/ddbClient";
 
-const dynamoDB = new AWS.DynamoDB({ region: "us-east-1" });
+// Set the parameters
 const params = {
     TableName: "aws-shop-products-stock",
     AttributeDefinitions: [
@@ -21,8 +22,13 @@ const params = {
     },
 };
 
-dynamoDB
-    .createTable(params)
-    .promise()
-    .then(data => console.log("Success!", data))
-    .catch(console.error);
+export const run = async () => {
+    try {
+        const data = await ddbClient.send(new CreateTableCommand(params));
+        console.log("Table Created", data);
+        return data;
+    } catch (err) {
+        console.log("Error", err);
+    }
+};
+run();

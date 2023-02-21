@@ -12,19 +12,12 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     console.log('request createProduct: ', event);
     const id = uuidv4();
 
-    const product = event.body;
+    const { count, ...product } = event.body;
 
-    if (product.article && product.title && product.description && product.image && product.price && product.count) {
+    if (product.article && product.title && product.description && product.image && product.price && count) {
         const paramsProduct: PutCommandInput = {
             TableName: process.env.TABLE_NAME_PRODUCTS,
-            Item: {
-                id,
-                title: product.title,
-                article: product.article,
-                description: product.description,
-                image: product.image,
-                price: product.price,
-            },
+            Item: { id, ...product },
         };
         const putResultProduct = await ddbDocClient.send(new PutCommand(paramsProduct));
 
@@ -32,7 +25,7 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
             TableName: process.env.TABLE_NAME_PRODUCTS_STOCK,
             Item: {
                 productId: id,
-                count: product.count,
+                count,
             },
         }));
 

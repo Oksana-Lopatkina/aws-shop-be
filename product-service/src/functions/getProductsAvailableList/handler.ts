@@ -1,37 +1,49 @@
 import { ddbDocClient } from "@libs/ddbDocClient";
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
-import { ScanCommandInput } from "@aws-sdk/lib-dynamodb/dist-types/commands";
 import { APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 
-const paramsProducts: ScanCommandInput = {
-  TableName: process.env.TABLE_NAME_PRODUCTS,
-};
+const getProductsData = async (): Promise<Product[]> => {
+  const { Items } = await ddbDocClient.send(new ScanCommand({
+    TableName: process.env.TABLE_NAME_PRODUCTS
+  }))
+  return Items as Product[];
+}
 
-const paramsStock: ScanCommandInput = {
-  TableName: process.env.TABLE_NAME_PRODUCTS_STOCK,
-};
+const getStockData = async (): Promise<ProductCount[]> => {
+  const { Items } = await ddbDocClient.send(new ScanCommand({
+    TableName: process.env.TABLE_NAME_PRODUCTS_STOCK
+  }))
+  return Items as ProductCount[];
+}
 
-import { Product } from '../../model/product';
+import {Product, ProductCount} from '../../model/product';
 const getProductsAvailableList = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     console.log('request getProductsAvailableList: ', event);
-    const dataProducts = await ddbDocClient.send(new ScanCommand(paramsProducts));
-    const dataStock = await ddbDocClient.send(new ScanCommand(paramsStock));
+    const dataProducts: Product[] = await getProductsData();
+    const dataStock: ProductCount[] = await getStockData();
 
-    if (!dataProducts || !dataStock) {
+    if (!dataProducts) {
       return formatJSONResponse({
-        message: 'Not found',
+        message: 'Products not found',
         event,
       }, 404);
     }
 
-    dataProducts.Items.forEach((product: Product) => {
-      const productCount: number = dataStock.Items.find(stock => stock.productId === product.id)?.count;
+    if (!dataStock) {
+      return formatJSONResponse({
+        message: 'Stock data not found',
+        event,
+      }, 404);
+    }
+
+    dataProducts.forEach((product: Product) => {
+      const productCount: number = dataStock.find(stock => stock.productId === product.id)?.count;
       product.count = productCount || 0;
     });
-    const data: Product[] = dataProducts?.Items.filter((product: Product) => {
+    const data: Product[] = dataProducts?.filter((product: Product) => {
       return product.count > 0;
     });
 

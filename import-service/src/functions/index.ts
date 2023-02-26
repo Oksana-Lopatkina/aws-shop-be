@@ -1,1 +1,7 @@
-export { default as hello } from './hello';
+import importFileParser from './importFileParser';
+import importProductsFile from './importProductsFile';
+
+export {
+    importFileParser,
+    importProductsFile,
+};

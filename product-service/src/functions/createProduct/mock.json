@@ -1,0 +1,6 @@
+{
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"article\": \"AA0606\",\"title\": \"Tw Super Boga 41/46\",\"description\": \"Funny slippers in the form of a bull\",\"image\": \"https://9eb5b2.cdn.akinoncloud.com/products/2022/08/09/33902/d80cf5ca-aeae-4bc7-85db-afdf2deb8b32_size435x658_cropCenter.jpg\",\"price\": 25, \"count\": 15}"
+}

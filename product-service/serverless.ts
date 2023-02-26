@@ -1,8 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 
-import getProductById  from '@functions/getProductById';
-import getProductsList  from '@functions/getProductsList';
-import getProductsAvailableList  from '@functions/getProductsAvailableList';
+import { createProduct, getProductById, getProductsList, getProductsAvailableList }  from '@functions/index';
 
 const serverlessConfiguration: AWS = {
   service: 'product-service',
@@ -11,6 +9,7 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: 'aws',
     runtime: 'nodejs18.x',
+    region: 'us-east-1',
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -18,10 +17,24 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+      TABLE_NAME_PRODUCTS: 'aws-shop-products',
+      TABLE_NAME_PRODUCTS_STOCK: 'aws-shop-products-stock',
     },
+    iamRoleStatements: [
+      {
+        Effect: 'Allow',
+        Action: 'dynamodb:*',
+        Resource: ['*'],
+      },
+    ],
   },
   // import the function via paths
-  functions: { getProductsList, getProductsAvailableList, getProductById },
+  functions: {
+    createProduct,
+    getProductsList,
+    getProductsAvailableList,
+    getProductById
+  },
   package: { individually: true },
   custom: {
     esbuild: {
@@ -39,7 +52,6 @@ const serverlessConfiguration: AWS = {
       basePath: '/dev',
       typefiles: ['./src/model/Product.ts' ],
       apiType: 'http',
-      // host: 'qrc6eg3r7d.execute-api.us-east-1.amazonaws.com',
     },
   },
 };

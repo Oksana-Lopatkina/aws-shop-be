@@ -6,6 +6,25 @@
     "version": "1"
   },
   "paths": {
+    "/products/": {
+      "post": {
+        "summary": "createProduct",
+        "description": "",
+        "operationId": "createProduct.post.products/",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "200 response"
+          }
+        }
+      }
+    },
     "/products": {
       "get": {
         "summary": "getProductsList",
@@ -94,6 +113,10 @@
           "title": "Product.price",
           "type": "number"
         },
+        "image": {
+          "title": "Product.image",
+          "type": "string"
+        },
         "count": {
           "title": "Product.count",
           "type": "number"
@@ -105,10 +128,29 @@
         "title",
         "description",
         "price",
-        "count"
+        "image"
       ],
       "additionalProperties": false,
       "title": "Product",
+      "type": "object"
+    },
+    "ProductCount": {
+      "properties": {
+        "productId": {
+          "title": "ProductCount.productId",
+          "type": "string"
+        },
+        "count": {
+          "title": "ProductCount.count",
+          "type": "number"
+        }
+      },
+      "required": [
+        "productId",
+        "count"
+      ],
+      "additionalProperties": false,
+      "title": "ProductCount",
       "type": "object"
     }
   },

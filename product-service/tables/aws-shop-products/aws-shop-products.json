@@ -1,0 +1,100 @@
+{
+  "aws-shop-products": [
+    {
+      "PutRequest": {
+        "Item": {
+          "article": {"S": "AA0097C"},
+          "description": {"S": "Bold red slippers with long pile"},
+          "id": {"S": "7567ec4b-b10c-48c5-9345-fc73c48a80aa"},
+          "image": {"S": "https://9eb5b2.cdn.akinoncloud.com/products/2022/10/28/39504/1714f096-0e22-4e21-88fc-f8c3a5acda0c_size435x658_cropCenter.jpg"},
+          "price": {"N": "30"},
+          "title": {"S": "Tw Hip Krmz 36/40"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "article": {"S": "YY0263"},
+          "description": {"S": "Funny slippers in the form of an angry dog"},
+          "id": {"S": "7567ec4b-b10c-48c5-9345-fc73c48a80a0"},
+          "image": {"S": "https://9eb5b2.cdn.akinoncloud.com/products/2021/08/23/27288/7771c799-59a0-4084-a2c5-d657f5b1c770_size435x658_cropCenter.jpg"},
+          "price": {"N": "20"},
+          "title": {"S": "Tw Kızgın Hayvanlı Panduf"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "article": {"S": "TT0772"},
+          "description": {"S": "Stylish slippers in the form of a paw of an animal"},
+          "id": {"S": "7567ec4b-b10c-48c5-9345-fc73c48a80a2"},
+          "image": {"S": "https://9eb5b2.cdn.akinoncloud.com/products/2020/08/18/22411/2b8c5647-95d8-4394-a546-4fce82c793e8_size435x658_cropCenter.jpg"},
+          "price": {"N": "23"},
+          "title": {"S": "Tw Leopardo Kadın Hayvanlı Panduf"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "article": {"S": "YY0272"},
+          "description": {"S": "Lovely husky slippers"},
+          "id": {"S": "7567ec4b-b10c-48c5-9345-fc73c48a80a1"},
+          "image": {"S": "https://9eb5b2.cdn.akinoncloud.com/products/2021/09/09/27313/b943abde-cefa-4731-aa18-c03946245ff7_size435x658_cropCenter.jpg"},
+          "price": {"N":  "20"},
+          "title": {"S": "Tw Siberia Hayvanlı Panduf"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "article": {"S": "TT0737"},
+          "description": {"S": "Cute slippers in the form of a llama"},
+          "id": {"S": "7567ec4b-b10c-48c5-9345-fc73c48a80a3"},
+          "image": {"S": "https://9eb5b2.cdn.akinoncloud.com/products/2020/08/18/20181/e20e6aea-0986-45a4-ac29-28a85e9c032f_size435x658_cropCenter.jpg"},
+          "price": {"N": "23"},
+          "title": {"S": "Tw Lama Bej Kadın Hayvanlı Panduf"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "article": {"S": "AA0645"},
+          "description": {"S": "Bright slippers in the form of a rainbow unicorn"},
+          "id": {"S": "7567ec4b-b10c-48c5-9345-fc73348a80a1"},
+          "image": {"S": "https://9eb5b2.cdn.akinoncloud.com/products/2022/10/24/34022/6bf45cd9-a4e9-4e88-bef4-0959a733b441_size435x658_cropCenter.jpg"},
+          "price": {"N": "15"},
+          "title": {"S": "Tw Rainbow 36/41"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "article": {"S": "AA0600"},
+          "description": {"S": "Cute slippers in the shape of a monkey"},
+          "id": {"S": "7567ec4b-b10c-48c5-9445-fc73c48a80a2"},
+          "image": {"S": "https://9eb5b2.cdn.akinoncloud.com/products/2022/10/31/33883/4096180f-c880-42c2-a976-4c02f2e0c184_size435x658_cropCenter.jpg"},
+          "price": {"N": "23"},
+          "title": {"S": "Tw Monkey Khv 36/43"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "article": {"S": "YY0305"},
+          "description": {"S": "Lovely toy terrier slippers"},
+          "id": {"S": "7567ec4b-b10c-45c5-9345-fc73c48a80a1"},
+          "image": {"S": "https://9eb5b2.cdn.akinoncloud.com/products/2021/08/24/27411/842f80b2-e18f-4434-99f9-cea7c8a394ad_size435x658_cropCenter.jpg"},
+          "price": {"N": "15"},
+          "title": {"S": "Tw Terier Kadın Hayvanlı Panduf"}
+        }
+      }
+    }
+  ]
+}

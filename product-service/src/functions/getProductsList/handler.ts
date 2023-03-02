@@ -1,6 +1,5 @@
 import { ddbDocClient } from "@libs/ddbDocClient";
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
-// import { ScanCommandInput } from "@aws-sdk/lib-dynamodb/dist-types/commands";
 import { APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';

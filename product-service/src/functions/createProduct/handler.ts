@@ -11,7 +11,6 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   try {
     console.log('request createProduct: ', event);
     const id = uuidv4();
-
     const { count, ...product } = event.body;
 
     if (product.article && product.title && product.description && product.image && product.price && count) {

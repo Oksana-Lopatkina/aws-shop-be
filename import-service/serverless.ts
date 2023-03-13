@@ -19,6 +19,8 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
       S3_BUCKET_NAME: 'aws-shop-catalog',
+      REGION: '${self:provider.region}',
+      SQS_URL: 'https://sqs.us-east-1.amazonaws.com/${aws:accountId}/aws-shop-catalog-queue',
     },
     iamRoleStatements: [
       {
@@ -30,6 +32,12 @@ const serverlessConfiguration: AWS = {
         Effect: 'Allow',
         Action: ['s3:GetObject', 's3:PutObject',  's3:DeleteObject'],
         Resource: ['arn:aws:s3:::aws-shop-catalog/*'],
+      },
+      {
+        Effect: 'Allow',
+        Action: ['sqs:*'],
+        // Resource: 'arn:aws:sqs:us-east-1:${aws:accountId}:aws-shop-catalog-queue',
+        Resource: 'arn:aws:sqs:us-east-1:000296682679:aws-shop-catalog-queue',
       }
     ],
   },

@@ -1,6 +1,12 @@
 import type { AWS } from '@serverless/typescript';
 
-import { createProduct, getProductById, getProductsList, getProductsAvailableList }  from '@functions/index';
+import {
+  createProduct,
+  getProductById,
+  getProductsList,
+  getProductsAvailableList,
+  catalogBatchProcess,
+}  from '@functions/index';
 
 const serverlessConfiguration: AWS = {
   service: 'product-service',
@@ -19,6 +25,10 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
       TABLE_NAME_PRODUCTS: 'aws-shop-products',
       TABLE_NAME_PRODUCTS_STOCK: 'aws-shop-products-stock',
+      REGION: '${self:provider.region}',
+      SNS_ARN: {
+        Ref: 'SNSCreateProductTopic'
+      },
     },
     iamRoleStatements: [
       {
@@ -26,14 +36,71 @@ const serverlessConfiguration: AWS = {
         Action: 'dynamodb:*',
         Resource: ['*'],
       },
+      {
+        Effect: 'Allow',
+        Action: 'sqs:*',
+        Resource: [
+          { 'Fn::GetAtt': ['SQSCatalogItemsQueue', 'Arn'] },
+        ],
+      },
+      {
+        Effect: 'Allow',
+        Action: 'sns:*',
+        Resource: [
+          { Ref: 'SNSCreateProductTopic' },
+        ],
+      },
     ],
+  },
+  resources: {
+    Resources: {
+      SQSCatalogItemsQueue: {
+        Type: 'AWS::SQS::Queue',
+        Properties: {
+          QueueName: 'aws-shop-catalog-queue',
+        }
+      },
+      SNSCreateProductTopic : {
+        Type: 'AWS::SNS::Topic',
+        Properties: {
+          TopicName: 'aws-shop-create-product-topic',
+        }
+      },
+      SNSSubscriptionPriceUnder20: {
+        Type: 'AWS::SNS::Subscription',
+        Properties: {
+          Endpoint: 'Oksana_Lopatkina@epam.com',
+          Protocol: 'email',
+          TopicArn: {
+            Ref: 'SNSCreateProductTopic',
+          },
+          FilterPolicy: {
+            price: [{"numeric": ["<", 20]}],
+          },
+        }
+      },
+      SNSSubscriptionPriceOver20: {
+        Type: 'AWS::SNS::Subscription',
+        Properties: {
+          Endpoint: 'oxy86xxl@mail.ru',
+          Protocol: 'email',
+          TopicArn: {
+            Ref: 'SNSCreateProductTopic',
+          },
+          FilterPolicy: {
+            price: [{"numeric": [">=", 20]}],
+          },
+        }
+      }
+    }
   },
   // import the function via paths
   functions: {
     createProduct,
     getProductsList,
     getProductsAvailableList,
-    getProductById
+    getProductById,
+    catalogBatchProcess,
   },
   package: { individually: true },
   custom: {

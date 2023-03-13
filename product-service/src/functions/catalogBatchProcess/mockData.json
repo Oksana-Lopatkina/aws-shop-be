@@ -1,0 +1,60 @@
+{
+  "Records": [
+    {
+      "article": "AA0097C",
+      "description": "Bold red slippers with long pile",
+      "image": "https://9eb5b2.cdn.akinoncloud.com/products/2022/10/28/39504/1714f096-0e22-4e21-88fc-f8c3a5acda0c_size435x658_cropCenter.jpg",
+      "price": 30,
+      "title": "Tw Hip Krmz 36/40"
+    },
+    {
+      "article": "YY0263",
+      "description": "Funny slippers in the form of an angry dog",
+      "image": "https://9eb5b2.cdn.akinoncloud.com/products/2021/08/23/27288/7771c799-59a0-4084-a2c5-d657f5b1c770_size435x658_cropCenter.jpg",
+      "price": 20,
+      "title": "Tw Kızgın Hayvanlı Panduf"
+    },
+    {
+      "article": "TT0772",
+      "description": "Stylish slippers in the form of a paw of an animal",
+      "image": "https://9eb5b2.cdn.akinoncloud.com/products/2020/08/18/22411/2b8c5647-95d8-4394-a546-4fce82c793e8_size435x658_cropCenter.jpg",
+      "price": 23,
+      "title": "Tw Leopardo Kadın Hayvanlı Panduf"
+    },
+    {
+      "article": "YY0272",
+      "description": "Lovely husky slippers",
+      "image": "https://9eb5b2.cdn.akinoncloud.com/products/2021/09/09/27313/b943abde-cefa-4731-aa18-c03946245ff7_size435x658_cropCenter.jpg",
+      "price": 20,
+      "title": "Tw Siberia Hayvanlı Panduf"
+    },
+    {
+      "article": "TT0737",
+      "description": "Cute slippers in the form of a llama",
+      "image": "https://9eb5b2.cdn.akinoncloud.com/products/2020/08/18/20181/e20e6aea-0986-45a4-ac29-28a85e9c032f_size435x658_cropCenter.jpg",
+      "price": 23,
+      "title": "Tw Lama Bej Kadın Hayvanlı Panduf"
+    },
+    {
+      "article": "AA0645",
+      "description": "Bright slippers in the form of a rainbow unicorn",
+      "image": "https://9eb5b2.cdn.akinoncloud.com/products/2022/10/24/34022/6bf45cd9-a4e9-4e88-bef4-0959a733b441_size435x658_cropCenter.jpg",
+      "price": 15,
+      "title": "Tw Rainbow 36/41"
+    },
+    {
+      "article": "AA0600",
+      "description": "Cute slippers in the shape of a monkey",
+      "image": "https://9eb5b2.cdn.akinoncloud.com/products/2022/10/31/33883/4096180f-c880-42c2-a976-4c02f2e0c184_size435x658_cropCenter.jpg",
+      "price": 23,
+      "title": "Tw Monkey Khv 36/43"
+    },
+    {
+      "article": "YY0305",
+      "description": "Lovely toy terrier slippers",
+      "image": "https://9eb5b2.cdn.akinoncloud.com/products/2021/08/24/27411/842f80b2-e18f-4434-99f9-cea7c8a394ad_size435x658_cropCenter.jpg",
+      "price": 15,
+      "title": "Tw Terier Kadın Hayvanlı Panduf"
+    }
+  ]
+}

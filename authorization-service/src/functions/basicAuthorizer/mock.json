@@ -1,0 +1,5 @@
+{
+  "type":"TOKEN",
+  "authorizationToken":"Basic T2tzYW5hTG9wYXRraW5hOlRFU1RfUEFTU1dPUkQ=",
+  "methodArn":"arn:aws:execute-api:{regionId}:{accountId}:{apiId}/{stage}/{httpVerb}/[{resource}/[{child-resources}]]"
+}

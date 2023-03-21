@@ -5,13 +5,13 @@ import {
     DeleteObjectCommand,
     GetObjectCommandOutput
 } from "@aws-sdk/client-s3";
-import { parseCsvStream } from '@libs/csv-parser';
+import { parseCsvStream } from '@service/csvParserService';
 import { S3CreateEvent } from 'aws-lambda';
 import { SRC_PREFIX, DEST_PREFIX } from '@setup/constants';
 
 const Bucket = process.env.S3_BUCKET_NAME;
 const importFileParser = async (event: S3CreateEvent): Promise<void> => {
-    console.log('importFileParser event: ', event);
+    console.log('[importFileParser] event: ', event);
     try {
         for (const record of event.Records) {
             const Key = record.s3.object.key;
@@ -22,7 +22,8 @@ const importFileParser = async (event: S3CreateEvent): Promise<void> => {
                     Bucket,
                     Key,
                 }));
-                await parseCsvStream(getObjectResult.Body as NodeJS.ReadableStream);
+                const parseResult = await parseCsvStream(getObjectResult.Body as NodeJS.ReadableStream);
+                console.log('[importFileParser] parseResult: ', parseResult);
 
                 // COPY the object from the folder 'uploaded' to the 'parsed'
                 const copyParams = {
